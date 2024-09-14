@@ -1,0 +1,34 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <div>
+            <h4> Add a Record: </h4>
+
+            <label>Money Spent: </label>
+            <input type="text" id="moneySpent" placeholder="money spent">
+            <br>
+
+            <label>Date/Time: </label>
+            <div>
+                <input type="radio" id="DateTimeAuto" value="auto">
+                <label for="DateTimeAuto">Auto</label>
+                <br>
+                <input type="radio" id="DateTimeUserDefine" value="">
+                <label for="DateTimeUserDefine">User-Define: </label>
+                <div>
+                    <label>Time: </label>
+                    <input type="text" id="time" placeholder="Leave Blank for Auto(24hr clock)">
+                    <br>
+                    <label>Date: </label>
+                    <input type="text" id="date" placeholder="Leave Blank for Auto(DD/MM/YY)">
+                </div>
+            </div>
+
+            <label>Usage: </label>
+            <select id="usage">
+                <option value="undefined">Undefined</option>
+            </select>
+        </div>
+    </body>
+</html>
