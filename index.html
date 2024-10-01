@@ -1,37 +1,59 @@
 <html>
     <head>
+        <link rel="stylesheet" href="index.css">
+        <link href='https://fonts.googleapis.com/css?family=Tilt Neon' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet'>
     </head>
     <body>
-        <div>
-            <h4> Add a Record: </h4>
+        <div id="recordAdder">
+            <h3 class="recordAdderText"> Add a Record: </h3>
 
-            <label>Money Spent: </label>
-            <input type="text" id="moneySpent" placeholder="money spent">
+            <label class="recordAdderText">Money Spent: </label>
+            <input class="recordAdderInput" type="text" id="moneySpent">
             <br>
 
-            <label>Date/Time: </label>
+            <label class="recordAdderText">Date/Time: </label>
             <div>
-                <input type="radio" id="DateTimeAuto" value="auto">
-                <label for="DateTimeAuto">Auto</label>
+                <input class="recordAdderInput" type="radio" id="DateTimeAuto" value="auto">
+                <label class="recordAdderText" for="DateTimeAuto">Auto</label>
                 <br>
-                <input type="radio" id="DateTimeUserDefine" value="">
-                <label for="DateTimeUserDefine">User-Define: </label>
-                <div>
-                    <label>Time: </label>
-                    <input type="text" id="time" placeholder="Leave Blank for Auto(24hr clock)">
+                <input class="recordAdderInput" type="radio" id="DateTimeUserDefine" value="">
+                <label class="recordAdderText" for="DateTimeUserDefine">User-Define: </label>
+                <div id="dateTime">
+                    <label class="recordAdderText">Time: </label>
+                    <input class="recordAdderInput" type="text" id="time" placeholder="(24Hr Clock)">
                     <br>
-                    <label>Date: </label>
-                    <input type="text" id="date" placeholder="Leave Blank for Auto(DD/MM/YY)">
+                    <label class="recordAdderText">Date: </label>
+                    <input class="recordAdderInput" type="text" id="date" placeholder="(DD/MM/YY)">
+                    <br>
+                    <label class="recordAdderText" id="LeaveBlankTips">*Leave Blank for Auto</label>
                 </div>
             </div>
 
-            <label>Usage: </label>
-            <select id="usage">
+            <label class="recordAdderText">Usage: </label>
+            <select class="recordAdderInput" id="usage">
                 <option value="undefined">Undefined</option>
+                <option onclick="addNewType()">Add a New Type...</option>
             </select>
-            <br><br>
+            <div class="addNewType"></div>
 
-            <input type="submit" value="Record">
+            <label class="recordAdderText">Remark: </label>
+            <input class="recordAdderInput" type="text" id="remark" placeholder="(Optional)">
+            <br><br>
+            <input class="recordAdderInput" id="recordButton" type="submit" value="Record">
+            <div id="hideRecordAdder" onclick="hideRecordAdder()">
+                <label class="recordAdderText" id="hideRecordAdderText">Back</label>
+            </div>
+        </div>
+        <div id="showRecordAdder" onclick="showRecordAdder()">
+                <label class="recordAdderText" id="showRecordAdderText">Add a Record</label>
+        </div>
+        <div>
+            <div id="expenditurePieChart"></div>
+            <div class="addNewType"></div>
+        </div>
+        <div>
+            <div id="weeklyExpenditure"></div>
         </div>
     </body>
 </html>

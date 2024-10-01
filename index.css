@@ -1,0 +1,64 @@
+#recordAdder, #showRecordAdder {
+    background-color: #ff007f;
+}
+
+#showRecordAdder{
+    width: 8%;
+    margin: auto;
+    padding: 0.1px 5px 5px 5px;
+}
+
+#hideRecordAdder{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px 15px 15px 15px;
+}
+
+#recordAdder{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 40px 40px 40px 40px;
+}
+
+#showRecordAdderText, #hideRecordAdderText{
+    text-align: center;
+    line-height: 100%;
+}
+
+.recordAdderText {
+    color: white;
+    font-family: Nunito, Tilt Neon;
+    font-size: 150%;
+    line-height: 150%;
+}
+
+.recordAdderInput {
+    border-style: none;
+    border-radius: 5px;
+}
+
+#leaveBlankTips{
+    opacity: 75%;
+    font-size: 100%;
+}
+
+#dateTime{
+    position: relative;
+    left: 40px;
+}
+.recordAdderInput::placeholder {
+
+}
+
+#recordButton {
+    background-color: yellow;
+    color: #ff007f;
+    border-style: none;
+    font-size: 150%;
+    padding: 10px 15px 10px 15px;
+}
