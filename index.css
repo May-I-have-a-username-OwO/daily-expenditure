@@ -17,12 +17,13 @@
 }
 
 #recordAdder{
-    position: fixed;
+    position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
     padding: 40px 40px 40px 40px;
+    border-radius: 0px 0px 50px 50px;
 }
 
 #showRecordAdderText, #hideRecordAdderText{
@@ -30,7 +31,14 @@
     line-height: 100%;
 }
 
-.recordAdderText {
+#hideRecordAdder {
+    display: block;
+    border-style: solid;
+    border-width: 5px;
+    border-color: black;
+}
+
+#showRecordAdder, #recordAdder {
     color: white;
     font-family: Nunito, Tilt Neon;
     font-size: 150%;
@@ -40,24 +48,32 @@
 .recordAdderInput {
     border-style: none;
     border-radius: 5px;
+    color: #ff007f;
+    font-family: Nunito, Tilt Neon;
+    font-size: 80%;
+}
+
+.recordAdderInput[type="radio"] {
+    -webkit-transform: scale(1.5);
 }
 
 #leaveBlankTips{
     opacity: 75%;
-    font-size: 100%;
+    font-size: 75%;
 }
 
 #dateTime{
     position: relative;
     left: 40px;
 }
-.recordAdderInput::placeholder {
 
+.recordAdderInput::placeholder {
+    color: #ff007f;
+    opacity: 0.5;
 }
 
 #recordButton {
     background-color: yellow;
-    color: #ff007f;
     border-style: none;
     font-size: 150%;
     padding: 10px 15px 10px 15px;
