@@ -7,7 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Entity
 public class Record {
@@ -16,7 +16,7 @@ public class Record {
     private Integer id;
     private String recordType;
     private double amount;
-    private LocalDateTime dateTime;
+    private ZonedDateTime dateTime;
     private String purpose;
     private String remark;
 
@@ -45,11 +45,11 @@ public class Record {
         this.amount = amount;
     }
 
-    public LocalDateTime getDateTime() {
+    public ZonedDateTime getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
+    public void setDateTime(ZonedDateTime dateTime) {
         this.dateTime = dateTime;
     }
 

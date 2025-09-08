@@ -1,3 +1,5 @@
+loadAllRecord();
+
 function hideRecordAdder() {
     $("#recordAdder").hide("fast");
     $("#showRecordAdder").show("fast");
@@ -12,10 +14,6 @@ function showAddNewType() {
     $("#addNewTypeDiv").show("fast");
 }
 
-function loadRecord(all) {
-
-}
-
 function addNewType() {
     const newOption = document.createElement("option");
     newOption.value = newOption.text = $("#newTypeName").val();
@@ -23,6 +21,31 @@ function addNewType() {
     $("#purpose").val(newOption.text);
 
     $("$addNewTypeMsg").show("fast");
+}
+
+function loadAllRecord() {
+    $.ajax({
+            type: "GET",
+            url: "/allRecord",
+            success: function(result) {
+                fillRecordTable(result);
+            }
+        });
+}
+
+function fillRecordTable(record) {
+    record.forEach(function(value) {
+        let row = document.createElement("tr");
+        let rowData = "";
+        rowData += "<td>" + value.recordType + "</td>";
+        rowData += "<td>$" + value.amount.toFixed(2) + "</td>";
+        const d = new Date(value.dateTime);
+        rowData += "<td>" + d + "</td>";
+        rowData += "<td>" + value.purpose + "</td>";
+        rowData += "<td>" + value.remark + "</td>";
+        row.innerHTML = rowData;
+        $("#recordTable").append(row);
+    });
 }
 
 function submitRecordValidation(formData) {
@@ -90,14 +113,14 @@ function submitRecord() {
     delete formDataProceed["dateTimeBox"];
 
     $.ajax({
-        type: 'POST',
-        url: '/addRecord',
+        type: "POST",
+        url: "/addRecord",
         data: JSON.stringify(formDataProceed),
         success: function(response) {
             $("#submitRecordMsg").show();
             $("#submitRecordMsg").text(response);
         },
         contentType: "application/json",
-        dataType: 'json'
+        dataType: "json"
     });
 }
