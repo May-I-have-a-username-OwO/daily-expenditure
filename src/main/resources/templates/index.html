@@ -1,0 +1,119 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <!-- <link rel="stylesheet" href="index.css"> -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="index.js"></script>
+        <link href='https://fonts.googleapis.com/css?family=Tilt Neon' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet'>
+    </head>
+    <body>
+        <div id="recordAdder">
+            <form id="recordAdderForm">
+                <h2> Add a Record: </h2>
+
+                <input class="recordAdderInput" type="radio" id="newRecord_expenditure" name="recordType" value="expenditure">
+                <label for="newRecord_expenditure">Expenditure</label>
+                <input class="recordAdderInput" type="radio" id="newRecord_income" name="recordType" value="income">
+                <label for="newRecord_income">Income</label>
+                <br>
+
+                <label>Amount: $</label>
+                <input class="recordAdderInput" type="text" id="moneySpent" name="amount">
+                <br>
+
+                <label>Date/Time: </label>
+                <div>
+                    <input class="recordAdderInput" type="radio" id="dateTime_Auto" name="dateTimeRadio" value="autoTime">
+                    <label for="dateTime_Auto">Auto</label>
+                    <br>
+                    <input class="recordAdderInput" type="radio" id="dateTime_UserDefine" name="dateTimeRadio" value="userDefineTime">
+                    <label for="dateTime_UserDefine">User-Define: </label>
+                    <input class="recordAdderInput" type="datetime-local" id="dateTime_UserDefine_Input" name="dateTimeBox">
+                    <br>
+                </div>
+
+                <label>Purpose: </label>
+                <select class="recordAdderInput" id="purpose" name="purpose">
+                    <option value="undefined">-------</option>
+                    <option id="addNewTypeOption" onclick="showAddNewType()">Add a New Type...</option>
+                </select>
+                <div id="addNewTypeDiv">
+                    <label>New Type Name: </label>
+                    <input class="recordAdderInput" type="text" id="newTypeName">
+                    <button class="recordAdderInput" type="button" onclick="addNewType()">Add</button>
+                </div>
+                <p id="addNewTypeMsg"></p>
+
+                <label>Remark: </label>
+                <input class="recordAdderInput" type="text" id="remark" placeholder="(Optional)" name="remark">
+                <br>
+
+                <p id="submitRecordMsg"></p>
+                <button class="recordAdderInput" id="submitRecordButton" type="button" onclick="submitRecord()">Submit</button>
+
+                <div id="hideRecordAdder" onclick="hideRecordAdder()">
+                    <label id="hideRecordAdderText">Hide</label>
+                </div>
+            </form>
+        </div>
+        <div id="showRecordAdder" onclick="showRecordAdder()">
+            <label id="showRecordAdderText">Add a Record</label>
+            <br><br>
+        </div>
+
+
+        <div id="incomeExpenditureSummary">
+            <div id="chooseRecordDate">
+                <div id="chooseByWhat">
+                    <label>View: </label>
+                    <select class="recordDateSelector" id="recordMonth" name="selectRecordDate">
+                        <option>All</option>
+                        <option>By Month</option>
+                        <option>By Year</option>
+                        <option onclick="toExactDate()">By Exact Date</option>
+                    </select>
+                </div>
+
+                <div id="chooseExactDate">
+                    <label>Record From: </label>
+                    <input class="recordDateSelector" id="readRecordFrom" type="date">
+                    <label>To: </label>
+                    <input class="recordDateSelector" id="readRecordTo" type="date">
+                </div>
+            </div>
+
+            <div id="totalIncomeExpenditure">
+                <div id="totalExpenditureBox">
+                    <h3>Total Expenditure: </h3>
+                    <h1 id="totalExpenditure">$1000.00</h1>
+                    <p>Goal: <$1000.00</p>
+                </div>
+                <div id="totalIncomeBox">
+                    <h3>Total Income: </h3>
+                    <h1 id="totalIncome">$1000.00</h1>
+                </div>
+            </div>
+
+            <div id="expenditurePieChart"></div>
+
+            <div id="detailRecords">
+                <h2>Detail Records</h2>
+                <table id="recordTable">
+                    <tr id="fieldTitle">
+                        <th>RecordType</th>
+                        <th>Amount</th>
+                        <th>DateTime</th>
+                        <th>Purpose</th>
+                        <th>Remark</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+        <div>
+            <div id="weeklyExpenditure"></div>
+        </div>
+    </body>
+</html>
