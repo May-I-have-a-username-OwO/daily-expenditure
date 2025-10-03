@@ -1,4 +1,14 @@
-loadAllRecord();
+getAllRecord();
+
+function showAndHide(show, hide) {
+    show.show("fast");
+    hide.hide("fast");
+}
+
+function showMonthInput() {
+    $('#chooseMonthDiv').show('fast');
+
+}
 
 function hideRecordAdder() {
     $("#recordAdder").hide("fast");
@@ -23,7 +33,7 @@ function addNewType() {
     $("$addNewTypeMsg").show("fast");
 }
 
-function loadAllRecord() {
+function getAllRecord() {
     $.ajax({
             type: "GET",
             url: "/allRecord",
@@ -33,7 +43,38 @@ function loadAllRecord() {
         });
 }
 
+function getRecordByMonth() {
+    let startDate = new Date($("#monthInput").val());
+    const d = new Date();
+    startDate.setMinutes(d.getTimezoneOffset());
+    let endDate = new Date(startDate);
+    endDate.setMonth(startDate.getMonth() + 1);
+    endDate.setMilliseconds(-1);
+    getRecordByExactDate(startDate, endDate);
+}
+
+function getRecordByExactDate(startDate, endDate) {
+    let d = new Date(startDate);
+    startDate = d.toISOString(d);
+    d = new Date(endDate);
+    endDate = d.toISOString(d);
+
+    const query = new URLSearchParams({
+        start: startDate,
+        end: endDate
+        });
+    $.ajax({
+            type: "GET",
+            url: "/record?" + query.toString(),
+            success: function(result) {
+                fillRecordTable(result);
+            }
+        });
+}
+
 function fillRecordTable(record) {
+    $("#recordTableBody").empty();
+
     record.forEach(function(value) {
         let row = document.createElement("tr");
         let rowData = "";
@@ -44,7 +85,7 @@ function fillRecordTable(record) {
         rowData += "<td>" + value.purpose + "</td>";
         rowData += "<td>" + value.remark + "</td>";
         row.innerHTML = rowData;
-        $("#recordTable").append(row);
+        $("#recordTableBody").append(row);
     });
 }
 

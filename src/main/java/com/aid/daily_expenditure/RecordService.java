@@ -2,6 +2,8 @@ package com.aid.daily_expenditure;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -17,6 +19,10 @@ public class RecordService {
 
     List<Record> fetchAllRecord() {
         return recordRepository.findAll();
+    }
+
+    List<Record> fetchRecordByExactDate(ZonedDateTime start, ZonedDateTime end) {
+        return recordRepository.findByDateTimeBetween(start, end);
     }
 
 //    void updateRecord(Record record, String id);

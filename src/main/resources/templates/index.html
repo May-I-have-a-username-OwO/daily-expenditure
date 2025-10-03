@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
-        <!-- <link rel="stylesheet" href="index.css"> -->
+        <link rel="stylesheet" href="index.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="index.js"></script>
         <link href='https://fonts.googleapis.com/css?family=Tilt Neon' rel='stylesheet'>
@@ -65,21 +65,31 @@
 
         <div id="incomeExpenditureSummary">
             <div id="chooseRecordDate">
-                <div id="chooseByWhat">
+                <div>
                     <label>View: </label>
-                    <select class="recordDateSelector" id="recordMonth" name="selectRecordDate">
-                        <option>All</option>
-                        <option>By Month</option>
-                        <option>By Year</option>
-                        <option onclick="toExactDate()">By Exact Date</option>
-                    </select>
+                    <button type="button" onclick="getAllRecord()">All</button>
+                    <button type="button" onclick="showMonthInput()">By Month</button>
+                    <button type="button" onclick="showYearInput()">By Year</button>
+                    <button type="button" onclick="showExactDateInput()">By Exact DateTime</button>
                 </div>
 
-                <div id="chooseExactDate">
+                <div id="chooseMonthDiv">
+                    <label>Month: </label>
+                    <input type="month" id="monthInput">
+                    <button type="button" onclick="getRecordByMonth()">Search</button>
+                </div>
+
+                <div id="chooseYearDiv">
+                    <label>Year: </label>
+                    <select id="yearInput"></select>
+                </div>
+
+                <div id="chooseExactDateDiv">
                     <label>Record From: </label>
-                    <input class="recordDateSelector" id="readRecordFrom" type="date">
+                    <input class="recordDateSelector" id="readRecordFrom" type="datetime-local">
                     <label>To: </label>
-                    <input class="recordDateSelector" id="readRecordTo" type="date">
+                    <input class="recordDateSelector" id="readRecordTo" type="datetime-local">
+                    <button type="button" onclick="getRecordByExactDate($('#readRecordFrom').val(), $('#readRecordTo').val())">Search</button>
                 </div>
             </div>
 
@@ -100,13 +110,16 @@
             <div id="detailRecords">
                 <h2>Detail Records</h2>
                 <table id="recordTable">
-                    <tr id="fieldTitle">
-                        <th>RecordType</th>
-                        <th>Amount</th>
-                        <th>DateTime</th>
-                        <th>Purpose</th>
-                        <th>Remark</th>
-                    </tr>
+                    <thead>
+                        <tr id="fieldTitle">
+                                <th>RecordType</th>
+                                <th>Amount</th>
+                                <th>DateTime</th>
+                                <th>Purpose</th>
+                                <th>Remark</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recordTableBody"></tbody>
                 </table>
             </div>
         </div>
