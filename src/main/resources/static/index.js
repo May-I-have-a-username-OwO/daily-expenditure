@@ -1,13 +1,20 @@
 getAllRecord();
+let oldestYear = getOldestDate().getFullYear();
 
-function showAndHide(show, hide) {
-    show.show("fast");
-    hide.hide("fast");
+
+function checkIfNewPurpose(value) {
+    if (value == "newType") {
+        $("#addNewTypeDiv").show("fast");
+    }
 }
 
-function showMonthInput() {
-    $('#chooseMonthDiv').show('fast');
+function showRecordSelect(by) {
+    $("#allRecordMsg").hide("fast");
+    $("#chooseMonthDiv").hide("fast");
+    $("#chooseYearDiv").hide("fast");
+    $("#chooseExactDateDiv").hide("fast");
 
+    by.show("fast");
 }
 
 function hideRecordAdder() {
@@ -20,10 +27,6 @@ function showRecordAdder() {
     $("#showRecordAdder").hide("fast");
 }
 
-function showAddNewType() {
-    $("#addNewTypeDiv").show("fast");
-}
-
 function addNewType() {
     const newOption = document.createElement("option");
     newOption.value = newOption.text = $("#newTypeName").val();
@@ -33,31 +36,50 @@ function addNewType() {
     $("$addNewTypeMsg").show("fast");
 }
 
+
+
+function getOldestDate() {
+    $.ajax({
+            type: "GET",
+            url: "/record/oldestDate",
+            success: function (result) {
+                d = new Date(result);
+            }
+    })
+}
+
 function getAllRecord() {
     $.ajax({
             type: "GET",
             url: "/allRecord",
             success: function(result) {
                 fillRecordTable(result);
+                $("#whichRecordMsg").text("All Records");
             }
         });
 }
 
 function getRecordByMonth() {
     let startDate = new Date($("#monthInput").val());
-    const d = new Date();
-    startDate.setMinutes(d.getTimezoneOffset());
     let endDate = new Date(startDate);
     endDate.setMonth(startDate.getMonth() + 1);
-    endDate.setMilliseconds(-1);
+    endDate.setDate(0);
     getRecordByExactDate(startDate, endDate);
 }
 
 function getRecordByExactDate(startDate, endDate) {
-    let d = new Date(startDate);
-    startDate = d.toISOString(d);
-    d = new Date(endDate);
-    endDate = d.toISOString(d);
+    let sd = new Date(startDate);
+    let ed = new Date(endDate);
+
+    ed.setDate(ed.getDate() + 1);
+    ed.setMilliseconds(-1);
+
+    const d = new Date();
+    sd.setMinutes(d.getTimezoneOffset());
+    ed.setMinutes(d.getTimezoneOffset());
+
+    startDate = sd.toISOString();
+    endDate = ed.toISOString();
 
     const query = new URLSearchParams({
         start: startDate,
@@ -68,8 +90,23 @@ function getRecordByExactDate(startDate, endDate) {
             url: "/record?" + query.toString(),
             success: function(result) {
                 fillRecordTable(result);
+                $("#whichRecordMsg").text("Records from " + sd.toLocaleDateString() + " to " + ed.toLocaleDateString());
             }
         });
+}
+
+
+
+function fillYearSelect() {
+    let options = "";
+    const d = new Date();
+    const y = d.getFullYear();
+
+    for (let i = y; i >= oldestYear; i--) {
+        options += "<option value='" + i + "'>" + i + "</option>\n";
+    }
+
+    $("#yearInput").append(options);
 }
 
 function fillRecordTable(record) {
@@ -87,7 +124,26 @@ function fillRecordTable(record) {
         row.innerHTML = rowData;
         $("#recordTableBody").append(row);
     });
+
+    updateTotal(record);
 }
+
+function updateTotal(record) {
+    let totalExpenditure = 0;
+    let totalIncome = 0;
+    record.forEach(function(value) {
+        if (value.recordType == "income") {
+            totalIncome += value.amount;
+        } else {
+            totalExpenditure += value.amount;
+        }
+    })
+
+    $("#totalExpenditure").text(totalExpenditure.toFixed(2));
+    $("#totalIncome").text(totalIncome.toFixed(2));
+}
+
+
 
 function submitRecordValidation(formData) {
     const emptyField = [];

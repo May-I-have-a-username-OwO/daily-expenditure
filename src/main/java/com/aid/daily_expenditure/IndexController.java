@@ -44,4 +44,10 @@ public class IndexController {
             @RequestParam ZonedDateTime end) {
         return recordService.fetchRecordByExactDate(start, end);
     }
+
+    @GetMapping("/record/oldestDate")
+    @ResponseBody
+    public ZonedDateTime sendOldestDate() {
+        return recordService.fetchOldestDate();
+    }
 }

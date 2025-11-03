@@ -34,9 +34,9 @@
                 </div>
 
                 <label>Purpose: </label>
-                <select class="recordAdderInput" id="purpose" name="purpose">
+                <select class="recordAdderInput" id="purpose" name="purpose" onchange="checkIfNewPurpose(this.value)">
                     <option value="undefined">-------</option>
-                    <option id="addNewTypeOption" onclick="showAddNewType()">Add a New Type...</option>
+                    <option id="addNewTypeOption" value="newType" onclick="showAddNewType()">Add a New Type...</option>
                 </select>
                 <div id="addNewTypeDiv">
                     <label>New Type Name: </label>
@@ -67,10 +67,10 @@
             <div id="chooseRecordDate">
                 <div>
                     <label>View: </label>
-                    <button type="button" onclick="getAllRecord()">All</button>
-                    <button type="button" onclick="showMonthInput()">By Month</button>
-                    <button type="button" onclick="showYearInput()">By Year</button>
-                    <button type="button" onclick="showExactDateInput()">By Exact DateTime</button>
+                    <button type="button" onclick="showRecordSelect($('#allRecordMsg')); getAllRecord()">All</button>
+                    <button type="button" onclick="showRecordSelect($('#chooseMonthDiv'))">By Month</button>
+                    <button type="button" onclick="showRecordSelect($('#chooseYearDiv')); fillYearSelect()">By Year</button>
+                    <button type="button" onclick="showRecordSelect($('#chooseExactDateDiv'))">By Exact Date</button>
                 </div>
 
                 <div id="chooseMonthDiv">
@@ -81,17 +81,21 @@
 
                 <div id="chooseYearDiv">
                     <label>Year: </label>
-                    <select id="yearInput"></select>
+                    <select id="yearInput">
+                        <option value="">- - - -</option>
+                    </select>
                 </div>
 
                 <div id="chooseExactDateDiv">
                     <label>Record From: </label>
-                    <input class="recordDateSelector" id="readRecordFrom" type="datetime-local">
+                    <input class="recordDateSelector" id="readRecordFrom" type="date">
                     <label>To: </label>
-                    <input class="recordDateSelector" id="readRecordTo" type="datetime-local">
+                    <input class="recordDateSelector" id="readRecordTo" type="date">
                     <button type="button" onclick="getRecordByExactDate($('#readRecordFrom').val(), $('#readRecordTo').val())">Search</button>
                 </div>
             </div>
+
+            <h2 id="whichRecordMsg"></h2>
 
             <div id="totalIncomeExpenditure">
                 <div id="totalExpenditureBox">
@@ -112,7 +116,7 @@
                 <table id="recordTable">
                     <thead>
                         <tr id="fieldTitle">
-                                <th>RecordType</th>
+                                <th>Record Type</th>
                                 <th>Amount</th>
                                 <th>DateTime</th>
                                 <th>Purpose</th>

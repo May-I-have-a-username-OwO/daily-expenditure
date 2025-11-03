@@ -30,4 +30,8 @@ public class RecordService {
     void deleteRecordById(String id) {
         recordRepository.deleteById(id);
     }
+
+    ZonedDateTime fetchOldestDate() {
+        return recordRepository.findTopByOrderByDateTimeAsc().get().getDateTime();
+    }
 }
