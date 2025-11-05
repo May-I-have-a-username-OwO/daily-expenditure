@@ -1,5 +1,9 @@
-getAllRecord();
-let oldestYear = getOldestDate().getFullYear();
+let goalType;
+clickAllRecord();
+
+let oldestYear;
+getOldestDate();
+
 
 
 function checkIfNewPurpose(value) {
@@ -9,7 +13,6 @@ function checkIfNewPurpose(value) {
 }
 
 function showRecordSelect(by) {
-    $("#allRecordMsg").hide("fast");
     $("#chooseMonthDiv").hide("fast");
     $("#chooseYearDiv").hide("fast");
     $("#chooseExactDateDiv").hide("fast");
@@ -27,6 +30,55 @@ function showRecordAdder() {
     $("#showRecordAdder").hide("fast");
 }
 
+function hideGoalDiv() {
+    $("#expenditureGoalDiv").hide();
+    $("#incomeGoalDiv").hide();
+}
+
+/*
+function showHideDiv(div, button) {
+    if (window.getComputedStyle(div).display === "none") {
+        div.show("fast");
+        button.text("up");
+    } else {
+        div.hide("fast");
+        button.text("down");
+    }
+}
+*/
+
+
+
+function changeGoalType(gt) {
+    goalType = gt;
+    $("#expenditureGoalLabel").text(`${goalType} Goal: <$`);
+    $("#incomeGoalLabel").text(`${goalType} Goal: >$`);
+
+    $("#expenditureGoalDiv").show("fast");
+    $("#incomeGoalDiv").show("fast");
+}
+
+function clickAllRecord() {
+    showRecordSelect($("#nothing"));
+    getAllRecord();
+    hideGoalDiv();
+}
+
+function clickMonthRecord() {
+    showRecordSelect($('#chooseMonthDiv'));
+}
+
+function clickYearRecord() {
+    showRecordSelect($('#chooseYearDiv'));
+    fillYearSelect();
+}
+
+function clickExactDateRecord() {
+    showRecordSelect($('#chooseExactDateDiv'));
+}
+
+
+
 function addNewType() {
     const newOption = document.createElement("option");
     newOption.value = newOption.text = $("#newTypeName").val();
@@ -36,6 +88,11 @@ function addNewType() {
     $("$addNewTypeMsg").show("fast");
 }
 
+function setGoal(goal, goalText, greaterOrLess) {
+    goal = parseInt(goal).toFixed(2);
+    goalText.text(`Goal: ${greaterOrLess}$${goal}`);
+}
+
 
 
 function getOldestDate() {
@@ -43,7 +100,8 @@ function getOldestDate() {
             type: "GET",
             url: "/record/oldestDate",
             success: function (result) {
-                d = new Date(result);
+                let d = new Date(result)
+                oldestYear = d.getFullYear();
             }
     })
 }
@@ -59,12 +117,26 @@ function getAllRecord() {
         });
 }
 
+function getRecordByYear() {
+    if ($("#yearInput").val != "") {
+        let startDate = $("#yearInput").val() + "-01-01";
+        let endDate = $("#yearInput").val() + "-12-31";
+        getRecordByExactDate(startDate, endDate);
+
+        changeGoalType("Yearly");
+    }
+}
+
 function getRecordByMonth() {
-    let startDate = new Date($("#monthInput").val());
-    let endDate = new Date(startDate);
-    endDate.setMonth(startDate.getMonth() + 1);
-    endDate.setDate(0);
-    getRecordByExactDate(startDate, endDate);
+    if ($("#monthInput").val()) {
+        let startDate = new Date($("#monthInput").val());
+        let endDate = new Date(startDate);
+        endDate.setMonth(startDate.getMonth() + 1);
+        endDate.setDate(0);
+        getRecordByExactDate(startDate, endDate);
+
+        changeGoalType("Monthly");
+    }
 }
 
 function getRecordByExactDate(startDate, endDate) {
@@ -90,7 +162,7 @@ function getRecordByExactDate(startDate, endDate) {
             url: "/record?" + query.toString(),
             success: function(result) {
                 fillRecordTable(result);
-                $("#whichRecordMsg").text("Records from " + sd.toLocaleDateString() + " to " + ed.toLocaleDateString());
+                $("#whichRecordMsg").text(`Records from ${sd.toLocaleDateString()} to ${ed.toLocaleDateString()}`);
             }
         });
 }
@@ -103,7 +175,7 @@ function fillYearSelect() {
     const y = d.getFullYear();
 
     for (let i = y; i >= oldestYear; i--) {
-        options += "<option value='" + i + "'>" + i + "</option>\n";
+        options += `<option value='${i}'>${i}</option>\n`;
     }
 
     $("#yearInput").append(options);
@@ -139,8 +211,8 @@ function updateTotal(record) {
         }
     })
 
-    $("#totalExpenditure").text(totalExpenditure.toFixed(2));
-    $("#totalIncome").text(totalIncome.toFixed(2));
+    $("#totalExpenditure").text("$" + totalExpenditure.toFixed(2));
+    $("#totalIncome").text("$" + totalIncome.toFixed(2));
 }
 
 
@@ -167,26 +239,26 @@ function submitRecordValidation(formData) {
     if (n != 0) {
         let emptyFieldString = "Please fill in ";
         if (n == 1) {
-            emptyFieldString += "\"" + emptyField[0] + "\".";
+            emptyFieldString += `"${emptyField[0]}".`;
         } else {
             for (let i = 0; i < n - 2; i++) {
-                emptyFieldString += "\"" + emptyField[i] + "\", ";
+                emptyFieldString += `"${emptyField[i]}", `;
             }
-            emptyFieldString += "\"" + emptyField[n - 2] + "\" and \"" + emptyField[n - 1] + "\".";
+            emptyFieldString += `"${emptyField[n - 2]}" and "${emptyField[n - 1]}".`;
         }
         errorMsg += emptyFieldString;
     }
-    if (amountNotPositiveNum) {
+    if (amountNotPositiveNum && formData["amount"] != "") {
         if (errorMsg != "") {
-            errorMsg += "\n";
+            errorMsg += "\n<br>\n";
         }
-        errorMsg += "\"Amount\" should be a positive number. ";
+        errorMsg += '"Amount" should be a positive number. ';
     }
 
     if (n == 0 && !amountNotPositiveNum) {
         return true;
     } else {
-        $("#submitRecordMsg").text(errorMsg);
+        $("#submitRecordMsg").html(errorMsg);
         return false;
     }
 }

@@ -67,10 +67,10 @@
             <div id="chooseRecordDate">
                 <div>
                     <label>View: </label>
-                    <button type="button" onclick="showRecordSelect($('#allRecordMsg')); getAllRecord()">All</button>
-                    <button type="button" onclick="showRecordSelect($('#chooseMonthDiv'))">By Month</button>
-                    <button type="button" onclick="showRecordSelect($('#chooseYearDiv')); fillYearSelect()">By Year</button>
-                    <button type="button" onclick="showRecordSelect($('#chooseExactDateDiv'))">By Exact Date</button>
+                    <button type="button" onclick="clickAllRecord()">All</button>
+                    <button type="button" onclick="clickMonthRecord()">By Month</button>
+                    <button type="button" onclick="clickYearRecord()">By Year</button>
+                    <button type="button" onclick="clickExactDateRecord()">By Exact Date</button>
                 </div>
 
                 <div id="chooseMonthDiv">
@@ -84,6 +84,7 @@
                     <select id="yearInput">
                         <option value="">- - - -</option>
                     </select>
+                    <button type="button" onclick="getRecordByYear()">Search</button>
                 </div>
 
                 <div id="chooseExactDateDiv">
@@ -91,7 +92,7 @@
                     <input class="recordDateSelector" id="readRecordFrom" type="date">
                     <label>To: </label>
                     <input class="recordDateSelector" id="readRecordTo" type="date">
-                    <button type="button" onclick="getRecordByExactDate($('#readRecordFrom').val(), $('#readRecordTo').val())">Search</button>
+                    <button type="button" onclick="getRecordByExactDate($('#readRecordFrom').val(), $('#readRecordTo').val()); hideGoalDiv();">Search</button>
                 </div>
             </div>
 
@@ -101,11 +102,33 @@
                 <div id="totalExpenditureBox">
                     <h3>Total Expenditure: </h3>
                     <h1 id="totalExpenditure">$1000.00</h1>
-                    <p>Goal: <$1000.00</p>
+                    <div id="expenditureGoalDiv">
+                        <p id="expenditureGoalText">Goal: &lt;$1000.00</p>
+
+                        <label for="showSetExpenditureGoal">Set Goal</label>
+                        <button type="button" id="showSetExpenditureGoal" onclick="$('#setExpenditureGoalDiv').toggle('fast')">show/Hide</button>
+                        <div id="setExpenditureGoalDiv">
+                            <label id="expenditureGoalLabel" for="expenditureGoal">Total Goal: &lt;$</label>
+                            <input type="text" id="expenditureGoal">
+                            <button type="button" onclick="setGoal($('#expenditureGoal').val(), $('#expenditureGoalText'), '&lt;')">Set</button>
+                        </div>
+                    </div>
                 </div>
+
                 <div id="totalIncomeBox">
                     <h3>Total Income: </h3>
                     <h1 id="totalIncome">$1000.00</h1>
+                    <div id="incomeGoalDiv">
+                        <p id="incomeGoalText">Goal: &gt;$1000.00</p>
+
+                        <label for="showSetIncomeGoal">Set Goal</label>
+                        <button type="button" id="showSetIncomeGoal" onclick="$('#setIncomeGoalDiv').toggle('fast')">show/Hide</button>
+                        <div id="setIncomeGoalDiv">
+                            <label id="incomeGoalLabel" for="incomeGoal">Total Goal: &gt;$</label>
+                            <input type="text" id="incomeGoal">
+                            <button type="button" onclick="setGoal($('#incomeGoal').val(), $('#incomeGoalText'), '&gt;')">Set</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 

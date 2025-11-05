@@ -1,3 +1,7 @@
-#addNewTypeDiv, #chooseMonthDiv, #chooseYearDiv, #chooseExactDateDiv {
+#showRecordAdder,
+#addNewTypeDiv, 
+#expenditureGoalDiv, #incomeGoalDiv, 
+#setExpenditureGoalDiv, #setIncomeGoalDiv, 
+#chooseMonthDiv, #chooseYearDiv, #chooseExactDateDiv {
     display: none;
 }
