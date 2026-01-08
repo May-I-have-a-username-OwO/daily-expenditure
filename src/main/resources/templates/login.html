@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <form id="loginForm" action="/login" method="post">
+            <label for="userIDorEmail">UserID or email adderess: </label>
+            <br>
+            <input type="text" id="userIDorEmail" name="userIDorEmail" required>
+            <br>
+
+            <label for="password">Password: </label>
+            <br>
+            <input type="text" id="password" name="password" required>
+            <br><br>
+            <button type="submit">Login</button>
+        </form>
+
+        <p>Don't have an account? <a href="/signUp">Sign up</a></p>
+    </body>
+</html>

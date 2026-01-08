@@ -4,3 +4,5 @@ spring:
     url: jdbc:mysql://localhost:3306/daily-expenditure
     username: root
     password: ictsba
+
+# don't forget this file is on github

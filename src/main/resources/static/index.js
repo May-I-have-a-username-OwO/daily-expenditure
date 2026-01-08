@@ -290,6 +290,6 @@ function submitRecord() {
             $("#submitRecordMsg").text(response);
         },
         contentType: "application/json",
-        dataType: "json"
+        dataType: "text"
     });
 }
