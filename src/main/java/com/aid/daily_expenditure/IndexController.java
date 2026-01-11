@@ -1,6 +1,9 @@
 package com.aid.daily_expenditure;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +17,7 @@ public class IndexController {
     private RecordService recordService;
 
     @Autowired
-    private UserService userService;
+    private UserRepository userRepository;
 
     @GetMapping("/")
     public String returnHomePage() {
@@ -39,7 +42,7 @@ public class IndexController {
         System.out.println(password);
         return "redirect:/";
     }
-
+*/
     @GetMapping("/signUp")
     public String returnSignUpPage() {
         return "signUp";
@@ -47,9 +50,9 @@ public class IndexController {
 
     @PostMapping(value = "/signUpValidation", consumes = "application/x-www-form-urlencoded")
     @ResponseBody
-    public String signUpValidation(@RequestParam String userId,
-                                   @RequestParam String email,
-                                   @RequestParam String password) {
+    public ResponseEntity<String> signUpValidation(@Valid @ModelAttribute SignUpInput signUpInput) {
+        return new ResponseEntity<>("ok", HttpStatus.CREATED);
+        /*
 
         if (userService.idUsed(userId)) {
             return "idUsed";
@@ -58,8 +61,10 @@ public class IndexController {
             return "This email is used. Try another one.";
         }
         return "Ok";
-    }
 
+         */
+    }
+/*
     @PostMapping(value = "/signUp", consumes = "application/x-www-form-urlencoded")
     public String signUp(@ModelAttribute User user) {
         userService.addUser(user);
@@ -69,9 +74,9 @@ public class IndexController {
 */
     @PostMapping("/addRecord")
     @ResponseBody
-    public String addRecord(@RequestBody Record recordData) {
+    public ResponseEntity<String> addRecord(@RequestBody Record recordData) {
         recordService.addRecord(recordData);
-        return "Record Added!";
+        return new ResponseEntity<>("Record Added!",HttpStatus.CREATED);
     }
 
     @GetMapping("/allRecord")
