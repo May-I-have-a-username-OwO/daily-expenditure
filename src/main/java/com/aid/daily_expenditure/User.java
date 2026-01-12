@@ -13,6 +13,16 @@ public class User {
     private String roles;
 
 
+    public User() {}
+
+    public User(SignUpInput signUpInput) {
+        this.userId = signUpInput.getUserId();
+        this.email = signUpInput.getEmail();
+        this.password = signUpInput.getPassword();
+        this.roles = "ROLE_USER";
+    }
+
+
     public String getUserId() {
         return userId;
     }

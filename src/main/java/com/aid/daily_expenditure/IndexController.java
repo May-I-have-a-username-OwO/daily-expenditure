@@ -17,7 +17,7 @@ public class IndexController {
     private RecordService recordService;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @GetMapping("/")
     public String returnHomePage() {
@@ -51,18 +51,8 @@ public class IndexController {
     @PostMapping(value = "/signUpValidation", consumes = "application/x-www-form-urlencoded")
     @ResponseBody
     public ResponseEntity<String> signUpValidation(@Valid @ModelAttribute SignUpInput signUpInput) {
+        userService.signUp(signUpInput);
         return new ResponseEntity<>("ok", HttpStatus.CREATED);
-        /*
-
-        if (userService.idUsed(userId)) {
-            return "idUsed";
-        }
-        if (userService.emailUsed(email)) {
-            return "This email is used. Try another one.";
-        }
-        return "Ok";
-
-         */
     }
 /*
     @PostMapping(value = "/signUp", consumes = "application/x-www-form-urlencoded")
@@ -74,7 +64,7 @@ public class IndexController {
 */
     @PostMapping("/addRecord")
     @ResponseBody
-    public ResponseEntity<String> addRecord(@RequestBody Record recordData) {
+    public ResponseEntity<String> addRecord(@Valid @RequestBody Record recordData) {
         recordService.addRecord(recordData);
         return new ResponseEntity<>("Record Added!",HttpStatus.CREATED);
     }
