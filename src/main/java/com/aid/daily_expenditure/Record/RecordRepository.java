@@ -7,12 +7,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RecordRepository extends CrudRepository<Record, String> {
-    @Override
-    List<Record> findAll();
-    List<Record> findByDateTimeBetween(ZonedDateTime start, ZonedDateTime end);
+    //List<Record> findAll();
+    //List<Record> findByDateTimeBetween(ZonedDateTime start, ZonedDateTime end);
 
-    List<Record> findByUserId(String userId);
-    List<Record> findByUserIdAndDateTimeBetween(String userId, ZonedDateTime start, ZonedDateTime end);
+    List<Record> findByUserIdOrderByDateTimeDesc(String userId);
+    List<Record> findByDateTimeBetweenAndUserIdOrderByDateTimeDesc(ZonedDateTime start, ZonedDateTime end, String userId);
 
-    Optional<Record> findTopByOrderByDateTimeAsc();
+    Optional<Record> findTopByUserIdOrderByDateTimeAsc(String userId);
 }

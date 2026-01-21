@@ -16,12 +16,12 @@ public class RecordService {
         recordRepository.save(record);
     }
 
-    public List<Record> fetchAllRecord() {
-        return recordRepository.findAll();
+    public List<Record> fetchAllRecord(String userId) {
+        return recordRepository.findByUserIdOrderByDateTimeDesc(userId);
     }
 
-    public List<Record> fetchRecordByExactDate(ZonedDateTime start, ZonedDateTime end) {
-        return recordRepository.findByDateTimeBetween(start, end);
+    public List<Record> fetchRecordByExactDate(ZonedDateTime start, ZonedDateTime end, String userId) {
+        return recordRepository.findByDateTimeBetweenAndUserIdOrderByDateTimeDesc(start, end, userId);
     }
 
 //    void updateRecord(Record record, String id);
@@ -32,7 +32,7 @@ public class RecordService {
 
  */
 
-    public ZonedDateTime fetchOldestDate() {
-        return recordRepository.findTopByOrderByDateTimeAsc().get().getDateTime();
+    public ZonedDateTime fetchOldestDate(String userId) {
+        return recordRepository.findTopByUserIdOrderByDateTimeAsc(userId).get().getDateTime();
     }
 }
