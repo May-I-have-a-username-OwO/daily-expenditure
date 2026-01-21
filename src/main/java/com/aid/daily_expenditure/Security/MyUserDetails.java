@@ -1,5 +1,6 @@
-package com.aid.daily_expenditure;
+package com.aid.daily_expenditure.Security;
 
+import com.aid.daily_expenditure.User.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

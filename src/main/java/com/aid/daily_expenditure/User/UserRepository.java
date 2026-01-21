@@ -1,4 +1,4 @@
-package com.aid.daily_expenditure;
+package com.aid.daily_expenditure.User;
 
 import org.springframework.data.repository.CrudRepository;
 

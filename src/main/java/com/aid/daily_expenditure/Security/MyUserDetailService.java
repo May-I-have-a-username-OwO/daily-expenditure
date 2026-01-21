@@ -1,5 +1,7 @@
-package com.aid.daily_expenditure;
+package com.aid.daily_expenditure.Security;
 
+import com.aid.daily_expenditure.User.User;
+import com.aid.daily_expenditure.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

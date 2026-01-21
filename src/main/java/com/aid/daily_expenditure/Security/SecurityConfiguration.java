@@ -1,4 +1,4 @@
-package com.aid.daily_expenditure;
+package com.aid.daily_expenditure.Security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
