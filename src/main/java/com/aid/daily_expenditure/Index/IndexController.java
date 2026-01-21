@@ -1,11 +1,5 @@
-package com.aid.daily_expenditure;
+package com.aid.daily_expenditure.Index;
 
-import com.aid.daily_expenditure.User.SignUpInput;
-import com.aid.daily_expenditure.User.UserService;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 

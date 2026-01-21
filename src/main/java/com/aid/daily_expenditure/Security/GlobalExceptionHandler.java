@@ -1,6 +1,5 @@
-package com.aid.daily_expenditure;
+package com.aid.daily_expenditure.Security;
 
-import com.aid.daily_expenditure.Security.MyValidationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
