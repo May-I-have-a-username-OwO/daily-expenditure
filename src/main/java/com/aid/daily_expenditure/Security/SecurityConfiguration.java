@@ -19,6 +19,7 @@ public class SecurityConfiguration {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/intro").permitAll()
                 .requestMatchers("/signUp").permitAll()
+                .requestMatchers("/signUp/**").permitAll()
                 .requestMatchers("/signUpValidation").permitAll()
                 .anyRequest().authenticated()
             )

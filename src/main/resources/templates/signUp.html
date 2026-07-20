@@ -1,22 +1,38 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="/signUp/signUp.js"></script>
     </head>
     <body>
         <h2>Sign Up</h2>
-        <form action="/signUpValidation" method="post">
+        <form action="/signUpValidation" method="post" id="signUpForm">
             <label for="userId">UserID: </label>
             <br>
             <input type="text" id="userId" name="userId" required>
             <br>
+            <ul>
+                <li>Only alphabets, digits, hyphens(-) and underscores(_)</li>
+                <li>1 - 30 characters</li>
+            </ul>
+
             <label for="email">Email Address: </label>
             <br>
             <input type="text" id="email" name="email" required>
             <br>
+            <ul>
+                <li>Valid Email Address</li>
+            </ul>
+
             <label for="password">Password: </label>
             <br>
-            <input type="text" id="password" name="password" placeholder="8-32 characters" required>
+            <input type="text" id="password" name="password" required>
             <br>
+            <ul>
+                <li>8 - 32 characters</li>
+                <li>At least 1 lowercase letter and 1 digit</li>
+                <li>only alphabets, digits, and special characters @$!%*?&#+_-</li>
+            </ul>
             <br>
             <input type="submit" value="Sign Up">
         </form>

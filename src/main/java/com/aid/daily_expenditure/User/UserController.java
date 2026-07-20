@@ -1,5 +1,6 @@
 package com.aid.daily_expenditure.User;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,9 +36,10 @@ public class UserController {
     }
 
     @PostMapping(value = "/signUpValidation", consumes = "application/x-www-form-urlencoded")
-    @ResponseBody
-    public ResponseEntity<String> signUpValidation(@Valid @ModelAttribute SignUpInput signUpInput) {
+    public ResponseEntity<String> signUpValidation(@Valid @ModelAttribute SignUpInput signUpInput, HttpServletRequest request) {
         userService.signUp(signUpInput);
+        userService.signInAfterSignUp(signUpInput.getUserId(), request);
+        //return "redirect:/";
         return new ResponseEntity<>("ok", HttpStatus.CREATED);
     }
 /*
