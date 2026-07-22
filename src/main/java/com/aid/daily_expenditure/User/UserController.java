@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
 
 @Controller
 public class UserController {
@@ -31,23 +32,16 @@ public class UserController {
  */
 
     @GetMapping("/signUp")
-    public String returnSignUpPage() {
+    public String returnSignUpPage(Model model) {
+        model.addAttribute("input", new SignUpInput());
         return "signUp";
     }
 
-    @PostMapping(value = "/signUpValidation", consumes = "application/x-www-form-urlencoded")
-    public ResponseEntity<String> signUpValidation(@Valid @ModelAttribute SignUpInput signUpInput, HttpServletRequest request) {
+    @PostMapping(value = "/signUp", consumes = "application/x-www-form-urlencoded")
+    public String signUpValidation(@Valid @ModelAttribute("input") SignUpInput signUpInput, HttpServletRequest request) {
         userService.signUp(signUpInput);
         userService.signInAfterSignUp(signUpInput.getUserId(), request);
         //return "redirect:/";
-        return new ResponseEntity<>("ok", HttpStatus.CREATED);
+        return "index";
     }
-/*
-    @PostMapping(value = "/signUp", consumes = "application/x-www-form-urlencoded")
-    public String signUp(@ModelAttribute User user) {
-        userService.addUser(user);
-        //return "idk";
-        return null;
-    }
-*/
 }

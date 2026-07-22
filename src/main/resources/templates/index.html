@@ -36,14 +36,14 @@
                 <label>Purpose: </label>
                 <select class="recordAdderInput" id="purpose" name="purpose" onchange="checkIfNewPurpose(this.value)">
                     <option value="undefined">-------</option>
-                    <option id="addNewTypeOption" value="newType" onclick="showAddNewType()">Add a New Type...</option>
+                    <option id="addNewPurposeOption" value="newPurpose">Add a New Purpose...</option>
                 </select>
-                <div id="addNewTypeDiv">
-                    <label>New Type Name: </label>
-                    <input class="recordAdderInput" type="text" id="newTypeName">
-                    <button class="recordAdderInput" type="button" onclick="addNewType()">Add</button>
+                <div id="addNewPurposeDiv">
+                    <label>New Purpose: </label>
+                    <input class="recordAdderInput" type="text" id="newPurposeName">
+                    <button class="recordAdderInput" type="button" onclick="addNewPurpose()">Add</button>
                 </div>
-                <p id="addNewTypeMsg"></p>
+                <p id="addNewPurposeMsg"></p>
 
                 <label>Remark: </label>
                 <input class="recordAdderInput" type="text" id="remark" placeholder="(Optional)" name="remark">

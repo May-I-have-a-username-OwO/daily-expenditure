@@ -1,6 +1,6 @@
 package com.aid.daily_expenditure.User;
 
-import com.aid.daily_expenditure.Security.MyValidationException;
+import com.aid.daily_expenditure.Security.SignUpValidationException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class UserService {
     private UserDetailsService userDetailsService;
 
 
-    public void signUp(SignUpInput input) throws MyValidationException {
+    public void signUp(SignUpInput input) throws SignUpValidationException {
         List<ObjectError> errors = new java.util.ArrayList<>();
 
         if (userRepository.existsById(input.getUserId())) {
@@ -35,7 +35,7 @@ public class UserService {
             errors.add(new ObjectError("Email Address", "This Email Address is used by others."));
         }
         if (!errors.isEmpty()) {
-            throw new MyValidationException(errors);
+            throw new SignUpValidationException(errors, input);
         }
 
         User newUser = new User(input);

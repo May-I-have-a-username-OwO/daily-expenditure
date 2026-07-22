@@ -7,8 +7,8 @@ getOldestDate();
 
 
 function checkIfNewPurpose(value) {
-    if (value == "newType") {
-        $("#addNewTypeDiv").show("fast");
+    if (value == "newPurpose") {
+        $("#addNewPurposeDiv").show("fast");
     }
 }
 
@@ -79,13 +79,13 @@ function clickExactDateRecord() {
 
 
 
-function addNewType() {
+function addNewPurpose() {
     const newOption = document.createElement("option");
-    newOption.value = newOption.text = $("#newTypeName").val();
-    $("#addNewTypeOption").before(newOption);
+    newOption.value = newOption.text = $("#newPurposeName").val();
+    $("#addNewPurposeOption").before(newOption);
     $("#purpose").val(newOption.text);
 
-    $("$addNewTypeMsg").show("fast");
+    $("$addNewPurposeMsg").show("fast");
 }
 
 function setGoal(goal, goalText, greaterOrLess) {
