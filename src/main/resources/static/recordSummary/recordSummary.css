@@ -1,0 +1,5 @@
+#expenditureGoalDiv, #incomeGoalDiv, 
+#setExpenditureGoalDiv, #setIncomeGoalDiv, 
+#chooseMonthDiv, #chooseYearDiv, #chooseExactDateDiv {
+    display: none;
+}

@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="addRecord/addRecord.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="addRecord/addRecord.js"></script>
+    </head>
+    <body>
+        <form id="recordAdderForm">
+            <h2> Add a Record: </h2>
+
+            <input class="recordAdderInput" type="radio" id="newRecord_expenditure" name="recordType" value="expenditure">
+            <label for="newRecord_expenditure">Expenditure</label>
+            <input class="recordAdderInput" type="radio" id="newRecord_income" name="recordType" value="income">
+            <label for="newRecord_income">Income</label>
+            <br>
+
+            <label>Amount: $</label>
+            <input class="recordAdderInput" type="text" id="moneySpent" name="amount">
+            <br>
+
+            <label>Date/Time: </label>
+            <div>
+                <input class="recordAdderInput" type="radio" id="dateTime_Auto" name="dateTimeRadio" value="autoTime">
+                <label for="dateTime_Auto">Auto</label>
+                <br>
+                <input class="recordAdderInput" type="radio" id="dateTime_UserDefine" name="dateTimeRadio" value="userDefineTime">
+                <label for="dateTime_UserDefine">User-Define: </label>
+                <input class="recordAdderInput" type="datetime-local" id="dateTime_UserDefine_Input" name="dateTimeBox">
+                <br>
+            </div>
+
+            <label>Purpose: </label>
+            <select class="recordAdderInput" id="purpose" name="purpose" onchange="checkIfNewPurpose(this.value)">
+                <option value="undefined">-------</option>
+                <option id="addNewPurposeOption" value="newPurpose">Add a New Purpose...</option>
+            </select>
+            <div id="addNewPurposeDiv">
+                <label>New Purpose: </label>
+                <input class="recordAdderInput" type="text" id="newPurposeName">
+                <button class="recordAdderInput" type="button" onclick="addNewPurpose()">Add</button>
+            </div>
+            <p id="addNewPurposeMsg"></p>
+
+            <label>Remark: </label>
+            <input class="recordAdderInput" type="text" id="remark" placeholder="(Optional)" name="remark">
+            <br>
+
+            <label id="submitRecordMsg"></label><br>
+            <button class="recordAdderInput" id="submitRecordButton" type="button" onclick="submitRecord()">Submit</button>
+    </body>
+</html>

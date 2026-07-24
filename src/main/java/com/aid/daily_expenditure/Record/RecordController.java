@@ -19,6 +19,11 @@ public class RecordController {
     @Autowired
     private RecordService recordService;
 
+    @GetMapping("/addRecord")
+    public String addRecordPage() {
+        return "addRecord";
+    }
+
     @PostMapping("/addRecord")
     @ResponseBody
     public ResponseEntity<String> addRecord(
@@ -27,6 +32,11 @@ public class RecordController {
         record.setUserId(userDetails.getUsername());
         recordService.addRecord(record);
         return new ResponseEntity<>("Record Added!", HttpStatus.CREATED);
+    }
+
+    @GetMapping("/recordSummary")
+    public String recordSummaryPage() {
+        return "recordSummary";
     }
 
     @GetMapping("/allRecord")
